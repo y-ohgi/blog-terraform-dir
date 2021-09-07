@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  terraform:
+    image: hashicorp/terraform:1.0.6
+    volumes:
+      - ~/.aws:/root/.aws:ro
+      - ./:/app/:cached
+    working_dir: /app/${SCOPE}
+    environment:
+      WORKSPACE: ${WORKSPACE}
