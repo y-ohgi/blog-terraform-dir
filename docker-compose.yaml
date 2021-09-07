@@ -7,5 +7,3 @@ services:
       - ~/.aws:/root/.aws:ro
       - ./:/app/:cached
     working_dir: /app/${SCOPE}
-    environment:
-      WORKSPACE: ${WORKSPACE}

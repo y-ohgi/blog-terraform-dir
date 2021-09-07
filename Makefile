@@ -1,5 +1,5 @@
 # usage:
-#   $ make apply SCOPE=vpc WORKSPACE=dev
+#   $ make apply SCOPE=network WORKSPACE=dev
 # vars:
 #  SCOPE: apply を実行するディレクトリ
 #  WORKSPACE: 環境（dev, prd）の指定
@@ -18,16 +18,7 @@ TF_CMD := docker-compose run --rm \
 	-e TF_WORKSPACE=$(WORKSPACE) \
 	terraform
 
-TF_SH_CMD := docker-compose run --rm \
-	-e SCOPE=$(SCOPE)	\
-	-e AWS_DEFAULT_REGION=$(AWS_DEFAULT_REGION) \
-	-e TF_VAR_state_bucket=$(TFSTATE_BUCKET) \
-	-e TF_WORKSPACE=$(WORKSPACE) \
-	--entrypoint=sh \
-	terraform
-
-
-.PHONY: all init sh
+.PHONY: all init
 
 all:
 	@more Makefile
@@ -46,8 +37,8 @@ plan: init
 apply: init
 	@ $(TF_CMD) apply
 
+destroy: init
+	@ $(TF_CMD) destroy
+
 workspace: init
 	$(TF_CMD) workspace $(ARG)
-
-sh:
-	@ $(TF_SH_CMD)

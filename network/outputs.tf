@@ -6,22 +6,18 @@ output "vpc_cidr" {
   value = aws_vpc.this.cidr_block
 }
 
-# output "private_subnet_ids" {
-#   value = module.thanos_vpc.private_subnets
-# }
-# 
-# output "public_subnet_ids" {
-#   value = module.thanos_vpc.public_subnets
-# }
-# 
-# output "subnet_cidr" {
-#   value = local.workspace["cidr"]
-# }
-# 
-# output "private_subnet_cidrs" {
-#   value = local.workspace["private_subnets"]
-# }
-# 
-# output "public_subnet_cidrs" {
-#   value = local.workspace["public_subnets"]
-# }
+output "public_subnet_ids" {
+  value = aws_subnet.public.*.id
+}
+
+output "private_subnet_ids" {
+  value = aws_subnet.private.*.id
+}
+
+output "public_subnet_cidrs" {
+  value = aws_subnet.public.*.cidr_block
+}
+
+output "private_subnet_cidrs" {
+  value = aws_subnet.private.*.cidr_block
+}
